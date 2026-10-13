@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pretty Beliss Cosmetics – Authentic branded makeup at amazing discounts</title>
+<meta name="description" content="Authentic branded cosmetics at amazing discounts. Order via WhatsApp or Instagram.">
+<link rel="icon" href="logo.png">
+<style>
+:root{--wine:#6D1230;--wine2:#8E1B40;--rose:#F7DCE3;--blush:#FFF4F6;--gold:#C9A25B;--ink:#2B1118;--mute:#7a5a64}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--blush);color:var(--ink)}
+button{font:inherit;cursor:pointer}a{color:inherit}
+.top{position:sticky;top:0;z-index:20;background:var(--wine);color:#fff;display:flex;align-items:center;gap:10px;padding:10px 14px}
+.top img{width:40px;height:40px;border-radius:50%}.top b{flex:1;font-size:17px}
+.ib{position:relative;background:rgba(255,255,255,.15);border:0;color:#fff;border-radius:50%;width:40px;height:40px;font-size:18px}
+.ib i{position:absolute;top:-4px;right:-4px;background:var(--gold);color:#2b1118;font-style:normal;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.hero{background:linear-gradient(135deg,var(--wine),var(--wine2) 60%,#c2476b);color:#fff;padding:26px 16px;text-align:center}
+.hero h1{margin:0 0 6px;font-size:24px}.hero p{margin:0;opacity:.9}
+.bar{padding:12px 14px;background:#fff;position:sticky;top:60px;z-index:15;box-shadow:0 2px 8px #0001}
+.bar input{width:100%;padding:11px 14px;border:1.5px solid var(--rose);border-radius:24px;font-size:15px;outline:0}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px}.chip{white-space:nowrap;border:1.5px solid var(--wine);background:#fff;color:var(--wine);padding:6px 14px;border-radius:20px;font-size:14px}
+.chip.on{background:var(--wine);color:#fff}
+h2.sec{margin:22px 14px 10px;color:var(--wine);font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 14px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.wrap{max-width:1100px;margin:auto}}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px #6d123018;display:flex;flex-direction:column;position:relative}
+.ph{aspect-ratio:1;background:var(--rose);display:flex;align-items:center;justify-content:center;color:var(--wine);font-size:34px}
+.ph img{width:100%;height:100%;object-fit:cover}
+.heart{position:absolute;top:8px;right:8px;background:#fff;border:0;border-radius:50%;width:34px;height:34px;font-size:17px;color:var(--wine2);box-shadow:0 1px 5px #0003}
+.off{position:absolute;top:8px;left:8px;background:var(--wine2);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px}
+.dupe{position:absolute;bottom:auto;top:34px;left:8px;background:var(--gold);color:#2b1118;font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px}
+.cb{padding:10px;display:flex;flex-direction:column;gap:6px;flex:1}.cb h3{margin:0;font-size:14px;line-height:1.25}
+.pr b{color:var(--wine);font-size:16px}.pr s{color:var(--mute);font-size:13px;margin-left:6px}.pr small{color:var(--mute)}
+select{width:100%;padding:8px;border:1.5px solid var(--rose);border-radius:8px;font-size:13px;background:#fff}
+.add{background:var(--wine);color:#fff;border:0;border-radius:10px;padding:10px;font-weight:600;margin-top:auto}
+.add:disabled{background:#c9b5bb}.low{color:#b45309;font-size:12px}.gone{color:#b91c1c;font-size:12px;font-weight:600}
+.empty{padding:30px 14px;text-align:center;color:var(--mute)}
+.dupes{background:linear-gradient(180deg,#fff,var(--rose));padding-bottom:20px;margin-top:20px}
+.rev{display:flex;gap:12px;overflow-x:auto;padding:0 14px 6px}.rv{min-width:240px;background:#fff;border-radius:14px;padding:14px;box-shadow:0 2px 10px #6d123018}
+.rv .st{color:var(--gold)}.rv p{margin:6px 0;font-size:14px}.rv small{color:var(--mute)}
+.faq{padding:0 14px}.faq details{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px}.faq summary{font-weight:600;color:var(--wine);cursor:pointer}
+footer{background:var(--wine);color:#fff;margin-top:26px;padding:24px 16px;text-align:center}footer a{color:#fff;margin:0 8px}
+.drawer{position:fixed;inset:0;background:#0006;z-index:50;display:none}.drawer.open{display:block}
+.pane{position:absolute;right:0;top:0;bottom:0;width:min(420px,100%);background:#fff;display:flex;flex-direction:column}
+.ph2{display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--wine);color:#fff}.ph2 button{background:none;border:0;color:#fff;font-size:22px}
+.pb{flex:1;overflow:auto;padding:12px}.li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--rose);align-items:center}
+.li img,.li .t{width:54px;height:54px;border-radius:10px;object-fit:cover;background:var(--rose);flex:none}
+.li .i{flex:1;font-size:14px}.q{display:flex;align-items:center;gap:8px;margin-top:4px}.q button{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--wine);background:#fff;color:var(--wine)}
+.pf{padding:12px;border-top:1px solid var(--rose);display:flex;flex-direction:column;gap:8px}
+.pf input,.pf textarea{width:100%;padding:10px;border:1.5px solid var(--rose);border-radius:8px;font:inherit}
+.btn{border:0;border-radius:10px;padding:12px;font-weight:600;color:#fff;text-align:center;text-decoration:none;display:block}
+.wa{background:#1fa855}.ig{background:linear-gradient(45deg,#f09433,#dc2743,#bc1888)}.cp{background:#fff;color:var(--wine);border:1.5px solid var(--wine)}
+.note{font-size:12px;color:var(--mute)}
+</style>
+</head>
+<body>
+<header class="top">
+  <img src="logo.png" alt="Pretty Beliss logo"><b>Pretty Beliss Cosmetics</b>
+  <button class="ib" id="wishBtn" aria-label="Wishlist">♥<i id="wishN">0</i></button>
+  <button class="ib" id="cartBtn" aria-label="Cart">🛍<i id="cartN">0</i></button>
+</header>
+<section class="hero"><h1>100% Authentic. Branded. Discounted.</h1><p>Shop your favourite makeup &amp; skincare for less ✨</p></section>
+<div class="bar"><div class="wrap"><input id="q" type="search" placeholder="Search products, brands, shades…"><div class="chips" id="chips"></div></div></div>
+<main class="wrap">
+  <h2 class="sec" id="allT">Shop all</h2>
+  <div id="status" class="empty">Loading products…</div>
+  <div class="grid" id="grid"></div>
+  <section class="dupes" id="dupeSec" style="display:none"><h2 class="sec">💄 Dupes – same look, smaller price</h2><div class="grid" id="dupeGrid"></div></section>
+  <h2 class="sec" id="reviews">Happy customers 💕</h2>
+  <div class="rev" id="rev"></div>
+  <h2 class="sec" id="faq">Good to know</h2>
+  <div class="faq">
+    <details><summary>Are the products authentic?</summary><p>Yes – every product is 100% authentic and branded.</p></details>
+    <details><summary>How do I order?</summary><p>Add items to your cart, tap Checkout, then send your order to us on WhatsApp or Instagram. We confirm availability and share payment details.</p></details>
+    <details><summary>Do you offer Cash on Delivery?</summary><p>No, COD isn't available. Prepaid orders only.</p></details>
+    <details><summary>Can I return a product?</summary><p>Because of hygiene, opened cosmetics can't be returned. If you receive a damaged or wrong item, message us within 24 hours with an unboxing video.</p></details>
+  </div>
+</main>
+<footer>
+  <img src="logo.png" width="56" height="56" style="border-radius:50%" alt="">
+  <p><b>Pretty Beliss Cosmetics</b><br>Authentic branded cosmetics at amazing discounts</p>
+  <p><a id="fWa" href="#">WhatsApp</a><a id="fIg" href="#">Instagram</a></p>
+  <p class="note" style="color:#f7dce3">© Pretty Beliss Cosmetics</p>
+</footer>
+
+<div class="drawer" id="cartD"><div class="pane">
+  <div class="ph2"><b>Your cart</b><button data-close>✕</button></div>
+  <div class="pb" id="cartB"></div>
+  <div class="pf" id="cartF"></div>
+</div></div>
+<div class="drawer" id="wishD"><div class="pane">
+  <div class="ph2"><b>Wishlist ♥</b><button data-close>✕</button></div>
+  <div class="pb" id="wishB"></div>
+</div></div>
+
+<script>
+/* ====== EDIT THESE ====== */
+const CONFIG = {
+  SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaf4GROBDQoGqX-Kr6bhEP2pg7lEw8w2IABaqFxZXXjXMdDp6RAkOt0sgdr_L30xen4iYqhYuHA1sj/pub?gid=1190913361&single=true&output=csv",
+  WHATSAPP_LINK: "https://wa.me/message/NWPWZBYMWCEU01",
+  INSTAGRAM_USER: "prettybeliss_cosmetics",
+  CURRENCY: "₹"
+};
+const REVIEWS = [
+  {n:"Happy customer", t:"Got my order so quickly and everything was original. Loved it!"},
+  {n:"Happy customer", t:"Amazing prices for authentic products. Will order again."},
+  {n:"Happy customer", t:"Lovely packaging and super helpful on Instagram."}
+]; // replace with the client's real reviews
+/* ======================= */
+
+const IG = "https://ig.me/m/" + CONFIG.INSTAGRAM_USER;
+const $ = s => document.querySelector(s);
+const norm = s => String(s||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+const ALIAS = {
+  name:["name","product","productname","item","title"],
+  shade:["shade","shades","variant","colour","color","shadename"],
+  stock:["instock","stock","available","availability"],
+  qty:["qty","quantity","stockqty","units"],
+  price:["price","saleprice","ourprice","sellingprice"],
+  mrp:["mrp","originalprice","listprice"],
+  cat:["category","cat"],
+  dupe:["dupeof","dupe"],
+  type:["type"],
+  photo:["photo","photos","image","img","photolink","imagelink","picture","photourl"]
+};
+let ALL = [], cat = "All", term = "";
+const LS = (k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const save = (k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let cart = LS("pb_cart",{}), wish = LS("pb_wish",[]);
+
+function parseCSV(t){
+  const rows=[];let r=[],c="",q=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];
+    if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}
+    else if(ch=='"')q=true;else if(ch==","){r.push(c);c=""}
+    else if(ch=="\n"||ch=="\r"){if(ch=="\r"&&t[i+1]=="\n")i++;r.push(c);rows.push(r);r=[];c=""}
+    else c+=ch}
+  if(c!==""||r.length){r.push(c);rows.push(r)}
+  return rows.filter(r=>r.some(x=>x.trim()!==""));
+}
+function driveImg(u,fallback){
+  u=(u||"").trim();if(!u)return "";
+  const m=u.match(/\/d\/([\w-]+)/)||u.match(/[?&]id=([\w-]+)/);
+  if(m)return fallback?`https://drive.google.com/thumbnail?id=${m[1]}&sz=w800`:`https://lh3.googleusercontent.com/d/${m[1]}=w800`;
+  return u;
+}
+function num(v){const n=parseFloat(String(v||"").replace(/[^0-9.]/g,""));return isNaN(n)?null:n}
+function titleCase(s){s=s.trim().toLowerCase();return s.charAt(0).toUpperCase()+s.slice(1)}
+function normCat(s){let c=titleCase(s||"");if(c==="Body care"||c==="Bodycare"||c==="Skincare")c="Skin care";if(c==="Lipcare")c="Lip care";return c||"Other"}
+
+function build(rows){
+  const head=rows[0].map(norm), idx={};
+  for(const k in ALIAS){idx[k]=head.findIndex(h=>ALIAS[k].includes(h))}
+  const get=(r,k)=>idx[k]>=0?(r[idx[k]]||"").trim():"";
+  const map=new Map();let cur="";
+  for(const r of rows.slice(1)){
+    const nm=get(r,"name");if(nm)cur=nm;if(!cur)continue;
+    let p=map.get(cur);
+    if(!p){p={id:cur,name:cur,cat:"",dupe:"",type:"",shades:[]};map.set(cur,p)}
+    if(get(r,"cat"))p.cat=normCat(get(r,"cat"));
+    if(get(r,"dupe"))p.dupe=get(r,"dupe");
+    if(get(r,"type"))p.type=get(r,"type");
+    const st=get(r,"stock").toLowerCase(), q=get(r,"qty");
+    let qty=q===""?null:num(q);
+    let inStock=!(st==="no"||st==="n"||st==="false"||st==="out"||st==="sold out"||st==="0");
+    if(qty!==null&&qty<=0)inStock=false;
+    p.shades.push({name:get(r,"shade"),price:num(get(r,"price")),mrp:num(get(r,"mrp")),qty,inStock,photo:get(r,"photo")});
+  }
+  return [...map.values()].map(p=>{
+    p.isDupe=!!p.dupe||/dupe/i.test(p.type);
+    if(!p.cat)p.cat="Other";
+    return p;
+  });
+}
+const money=n=>CONFIG.CURRENCY+Math.round(n).toLocaleString("en-IN");
+const key=(p,s)=>p.id+"||"+(s||"");
+const find=(k)=>{const[a,b]=k.split("||");const p=ALL.find(x=>x.id===a);if(!p)return null;const s=p.shades.find(x=>x.name===b)||p.shades[0];return{p,s}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function imgTag(src,alt){
+  const a=driveImg(src),b=driveImg(src,true);
+  return a?`<img src="${esc(a)}" alt="${esc(alt)}" loading="lazy" referrerpolicy="no-referrer" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='${esc(b)}'}else{this.replaceWith(document.createTextNode('💄'))}">`:"💄";
+}
+const selShade=(p)=>{const el=document.getElementById("sh-"+CSS.escape(p.id));return el?el.value:(p.shades[0]||{}).name};
+const shadeObj=(p,n)=>p.shades.find(s=>s.name===n)||p.shades[0];
+
+function card(p){
+  const first=p.shades.find(s=>s.inStock)||p.shades[0];
+  const multi=p.shades.length>1||(p.shades[0]&&p.shades[0].name);
+  const disc=first.mrp&&first.price&&first.mrp>first.price?Math.round((1-first.price/first.mrp)*100):0;
+  const hearted=wish.includes(p.id);
+  const allGone=p.shades.every(s=>!s.inStock);
+  const idAttr=encodeURIComponent(p.id);
+  return `<div class="card" data-id="${esc(idAttr)}">
+    ${disc?`<span class="off">${disc}% OFF</span>`:""}${p.isDupe?`<span class="dupe">DUPE</span>`:""}
+    <button class="heart" data-wish="${esc(idAttr)}" aria-label="Wishlist">${hearted?"♥":"♡"}</button>
+    <div class="ph" data-ph>${imgTag(first.photo,p.name)}</div>
+    <div class="cb"><h3>${esc(p.name)}</h3>
+      ${p.isDupe&&p.dupe?`<div class="note">Dupe of ${esc(p.dupe)}</div>`:""}
+      <div class="pr" data-pr>${priceHtml(first)}</div>
+      ${multi?`<select data-shade>${p.shades.map(s=>`<option value="${esc(s.name)}" ${s.inStock?"":"disabled"}>${esc(s.name||"Default")}${s.inStock?"":" – sold out"}</option>`).join("")}</select>`:""}
+      <div data-stk>${stockHtml(first)}</div>
+      <button class="add" data-add ${allGone?"disabled":""}>${allGone?"Sold out":"Add to cart"}</button>
+    </div></div>`;
+}
+function priceHtml(s){
+  if(s.price)return `<b>${money(s.price)}</b>${s.mrp&&s.mrp>s.price?`<s>${money(s.mrp)}</s>`:""}`;
+  if(s.mrp)return `<s>${money(s.mrp)}</s> <small>Price on request</small>`;
+  return `<small>Price on request</small>`;
+}
+function stockHtml(s){
+  if(!s.inStock)return `<span class="gone">Sold out</span>`;
+  if(s.qty!==null&&s.qty<=3)return `<span class="low">Only ${s.qty} left</span>`;
+  return "";
+}
+function render(){
+  const cats=["All",...[...new Set(ALL.filter(p=>!p.isDupe).map(p=>p.cat))]];
+  $("#chips").innerHTML=cats.map(c=>`<button class="chip ${c===cat?"on":""}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
+  const m=p=>!term||norm(p.name+" "+p.cat+" "+p.dupe+" "+p.shades.map(s=>s.name).join(" ")).includes(norm(term));
+  const main=ALL.filter(p=>!p.isDupe&&(cat==="All"||p.cat===cat)&&m(p));
+  const dup=ALL.filter(p=>p.isDupe&&m(p));
+  $("#grid").innerHTML=main.map(card).join("");
+  $("#dupeGrid").innerHTML=dup.map(card).join("");
+  $("#dupeSec").style.display=dup.length?"block":"none";
+  $("#allT").textContent=cat==="All"?"Shop all":cat;
+  $("#status").style.display=main.length||dup.length?"none":"block";
+  if(!main.length&&!dup.length)$("#status").textContent=ALL.length?"No products match your search.":"No products yet.";
+  counts();
+}
+function counts(){
+  $("#cartN").textContent=Object.values(cart).reduce((a,b)=>a+b,0);
+  $("#wishN").textContent=wish.length;
+}
+function addCart(k){
+  const f=find(k);if(!f)return;
+  const cur=cart[k]||0, max=f.s.qty;
+  if(max!==null&&cur>=max){alert("Only "+max+" available");return}
+  cart[k]=cur+1;save("pb_cart",cart);counts();
+}
+function setQty(k,n){
+  const f=find(k);if(n<=0){delete cart[k]}else{if(f&&f.s.qty!==null&&n>f.s.qty)n=f.s.qty;cart[k]=n}
+  save("pb_cart",cart);counts();drawCart();
+}
+function drawCart(){
+  const ks=Object.keys(cart).filter(k=>find(k));
+  if(!ks.length){$("#cartB").innerHTML='<div class="empty">Your cart is empty 🛍</div>';$("#cartF").innerHTML="";return}
+  let tot=0,tbc=false,lines=[];
+  $("#cartB").innerHTML=ks.map(k=>{const{p,s}=find(k),n=cart[k];
+    if(s.price)tot+=s.price*n;else tbc=true;
+    lines.push(`• ${p.name}${s.name?" – "+s.name:""} x${n}`+(s.price?` = ${money(s.price*n)}`:" (price TBC)"));
+    return `<div class="li"><div class="t">${imgTag(s.photo||p.shades[0].photo,p.name)}</div><div class="i"><b>${esc(p.name)}</b><br>${esc(s.name)}<br>${s.price?money(s.price):"Price on request"}
+      <div class="q"><button data-q="${esc(encodeURIComponent(k))}" data-d="-1">−</button>${n}<button data-q="${esc(encodeURIComponent(k))}" data-d="1">+</button></div></div></div>`}).join("");
+  const text=`Hi Pretty Beliss! I'd like to order:\n${lines.join("\n")}\n\nTotal: ${money(tot)}${tbc?" + TBC":""}\nName:\nAddress & pincode:\nPhone:`;
+  $("#cartF").innerHTML=`<div><b>Total: ${money(tot)}${tbc?" + TBC":""}</b></div>
+   <textarea id="ord" rows="6">${esc(text)}</textarea>
+   <div class="note">Step 1: add your name &amp; address. Step 2: copy &amp; send on WhatsApp or Instagram. No COD – we'll share payment details.</div>
+   <button class="btn cp" id="copyBtn">Copy order</button>
+   <a class="btn wa" id="waBtn" target="_blank" rel="noopener" href="${CONFIG.WHATSAPP_LINK}">Order on WhatsApp</a>
+   <a class="btn ig" id="igBtn" target="_blank" rel="noopener" href="${IG}">Order on Instagram</a>`;
+  const copy=()=>{const v=$("#ord").value;try{navigator.clipboard.writeText(v)}catch(e){$("#ord").select();document.execCommand("copy")}$("#copyBtn").textContent="Copied ✓"};
+  $("#copyBtn").onclick=copy;$("#waBtn").onclick=copy;$("#igBtn").onclick=copy;
+}
+function drawWish(){
+  const ps=wish.map(id=>ALL.find(p=>p.id===id)).filter(Boolean);
+  $("#wishB").innerHTML=ps.length?ps.map(p=>{const s=p.shades.find(x=>x.inStock)||p.shades[0];
+    return `<div class="li"><div class="t">${imgTag(s.photo,p.name)}</div><div class="i"><b>${esc(p.name)}</b><br>${priceHtml(s)}
+    <div class="q"><button style="width:auto;padding:0 10px;border-radius:14px" data-wadd="${esc(encodeURIComponent(p.id))}">Add to cart</button><button data-wish="${esc(encodeURIComponent(p.id))}">✕</button></div></div></div>`}).join(""):'<div class="empty">No favourites yet ♡</div>';
+}
+const open=id=>$(id).classList.add("open"), closeAll=()=>document.querySelectorAll(".drawer").forEach(d=>d.classList.remove("open"));
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-cat],[data-wish],[data-add],[data-q],[data-wadd],[data-close]");
+  if(e.target.classList&&e.target.classList.contains("drawer"))return closeAll();
+  if(!t)return;
+  if(t.dataset.cat){cat=t.dataset.cat;render()}
+  else if(t.dataset.close!==undefined)closeAll();
+  else if(t.dataset.wish){const id=decodeURIComponent(t.dataset.wish);wish=wish.includes(id)?wish.filter(x=>x!==id):[...wish,id];save("pb_wish",wish);render();if($("#wishD").classList.contains("open"))drawWish()}
+  else if(t.dataset.add!==undefined){const c=t.closest(".card"),p=ALL.find(x=>x.id===decodeURIComponent(c.dataset.id));const sel=c.querySelector("[data-shade]");addCart(key(p,sel?sel.value:p.shades[0].name));t.textContent="Added ✓";setTimeout(()=>t.textContent="Add to cart",900)}
+  else if(t.dataset.q){const k=decodeURIComponent(t.dataset.q);setQty(k,(cart[k]||0)+Number(t.dataset.d))}
+  else if(t.dataset.wadd){const p=ALL.find(x=>x.id===decodeURIComponent(t.dataset.wadd));const s=p.shades.find(x=>x.inStock);if(s)addCart(key(p,s.name))}
+});
+document.addEventListener("change",e=>{
+  if(!e.target.matches("[data-shade]"))return;
+  const c=e.target.closest(".card"),p=ALL.find(x=>x.id===decodeURIComponent(c.dataset.id)),s=shadeObj(p,e.target.value);
+  c.querySelector("[data-pr]").innerHTML=priceHtml(s);c.querySelector("[data-stk]").innerHTML=stockHtml(s);
+  c.querySelector("[data-ph]").innerHTML=imgTag(s.photo||p.shades[0].photo,p.name);
+});
+$("#q").addEventListener("input",e=>{term=e.target.value;render()});
+$("#cartBtn").onclick=()=>{drawCart();open("#cartD")};
+$("#wishBtn").onclick=()=>{drawWish();open("#wishD")};
+$("#fWa").href=CONFIG.WHATSAPP_LINK;$("#fIg").href="https://instagram.com/"+CONFIG.INSTAGRAM_USER;
+$("#rev").innerHTML=REVIEWS.map(r=>`<div class="rv"><div class="st">★★★★★</div><p>${esc(r.t)}</p><small>– ${esc(r.n)}</small></div>`).join("");
+
+(async function(){
+  try{
+    const url=CONFIG.SHEET_CSV_URL+(CONFIG.SHEET_CSV_URL.includes("?")?"&":"?")+"t="+Date.now();
+    const r=await fetch(url);if(!r.ok)throw new Error("HTTP "+r.status);
+    ALL=build(parseCSV(await r.text()));
+    // drop cart/wish entries for products that no longer exist
+    Object.keys(cart).forEach(k=>{if(!find(k))delete cart[k]});wish=wish.filter(id=>ALL.some(p=>p.id===id));
+    render();
+  }catch(e){console.error(e);$("#status").innerHTML="Couldn't load products. Please refresh or message us on Instagram.<br><small>("+esc(e&&e.message||e)+")</small>"}
+})();
+</script>
+</body>
+</html>
