@@ -15,14 +15,16 @@ EDITING THE SITE DESIGN
 - Product reels (the moving video row above the shop): search for "PRODUCT REELS" in the script and fill the
   REELS list. Each line is one tile:
     title   = short caption shown on the cover
-    src     = your Instagram reel link (YouTube or a direct .mp4 link also work)
-    poster  = the cover picture; the four current covers live in the reels/ folder (reel-1.jpg ... reel-4.jpg) —
-              replace a file with your own picture of the same name, or point poster at a new image
+    src     = the original Instagram reel link (kept as the source of the clip)
+    video   = the clip file in the reels/ folder. It loops silently in the row and plays with sound on the
+              product page. To change a clip, replace that .mp4 with one of the same name
+    poster  = the cover frame, also in reels/. Replace the .jpg with one of the same name
     product = exact product name from the sheet that the tile should open. Leave it blank and clicking the
               tile scrolls to the shop and shows a small note offering to find that piece on WhatsApp instead
               (it never opens a random product).
-  The row moves on its own (one card every ~3 seconds, loops, pauses when the mouse is over it) and clicking
-  a tile jumps straight to that product's page. Add a fifth/sixth line to the list for more tiles; the row
+  The row moves on its own (one card every ~3 seconds, loops, pauses when the mouse is over it). Every clip
+  plays continuously and silently — no mute/unmute control is shown. Clicking a tile goes to that product's
+  page, where the same clip appears under "See it in motion" with sound and normal video controls. The row
   shows the list twice so the loop stays seamless.
 - Flowers: the big rotating blooms come from the mini <svg><use href="#bloom"> symbol right after <body>
   (edit that one shape to change every flower on the site). The <div class="hsDeco"> line inside each offer

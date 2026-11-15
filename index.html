@@ -177,6 +177,12 @@ h2.sec::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(
 .pin a:hover{background:var(--burgundy)}
 .pin .x{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;border:1px solid #e0cbc6;background:#fff;color:var(--wine);font-size:13px;line-height:1;cursor:pointer}
 .pin .x:hover{background:var(--wine);color:#fff;border-color:var(--wine)}
+.rlVid{width:100%;height:100%;object-fit:cover;display:block;background:#2c0a16;transition:transform .55s ease}
+.rlCard:hover .rlVid{transform:scale(1.04)}
+/* clip on the product page, with sound */
+.dvidWrap{max-width:330px;margin:8px 0 10px}
+.dvid{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:16px;background:#1b0810;border:1px solid #e7d3a9;box-shadow:0 14px 32px #3b0a1926}
+.dvidCap{margin-top:9px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mauve)}
 .rlCard .cap{position:absolute;inset:auto 0 0;padding:30px 10px 10px;text-align:left;background:linear-gradient(#0000,#2b0813e8);color:#fff}
 .rlCard .cap b{display:block;font-size:11.5px;font-weight:500;line-height:1.35}
 .rlCard .cap span{display:block;margin-top:3px;font-size:10.5px;color:var(--gold-soft)}
@@ -532,16 +538,21 @@ const REVIEWS = [
   {n:"Happy customer", t:"Lovely packaging and super helpful on Instagram."}
 ]; // replace with the client's real reviews
 
-/* ===== PRODUCT REELS : 6 tiles. Paste a video link in src =====
-   src can be an Instagram reel, a YouTube / Shorts link, or a direct .mp4 file link.
-   Leave src empty and the tile shows the product photo and opens that product page.
-   poster: optional custom cover image. product: exact product name from your sheet
-   (leave blank to use the product in the same position in the sheet). */
+/* ===== PRODUCT REELS : one line per clip =====
+   title   : short caption on the cover
+   src     : the original Instagram reel link (kept as the source of the clip)
+   video   : the clip itself, stored in the reels/ folder. It loops silently in the row and plays with
+             sound on the product page. To swap a clip, replace the .mp4 with one of the same name.
+   poster  : cover frame shown before the clip starts
+   product : exact product name from your sheet. Leave blank and the tile scrolls to the shop with a
+             WhatsApp note instead (it never opens a random product). */
 const REELS = [
-  { title:"Pick one now", src:"https://www.instagram.com/reel/DfGFqnbyNDC/", poster:"reels/reel-1.jpg", product:"YSL eyeshadow quad pallete" },
-  { title:"The pink edit", src:"https://www.instagram.com/reel/DcBm9V4Ssgq/", poster:"reels/reel-2.jpg", product:"rhode pocket blush" },
-  { title:"Pretty pink KIKO", src:"https://www.instagram.com/reel/DbqFKMpS1yx/", poster:"reels/reel-3.jpg", product:"" },
-  { title:"YSL blush", src:"https://www.instagram.com/reel/DaYZSnvykkn/", poster:"reels/reel-4.jpg", product:"YSL blush and highlighter pallate" }
+  { title:"Dior lip maximizer", src:"https://www.instagram.com/reel/DeAbNPwz0Sh/", video:"reels/dior-lip-maximizer.mp4", poster:"reels/dior-lip-maximizer.jpg", product:"" },
+  { title:"Huda lip contour", src:"https://www.instagram.com/reel/DfVVMfXSt0W/", video:"reels/huda-lip-contour.mp4", poster:"reels/huda-lip-contour.jpg", product:"" },
+  { title:"Fenty killawatt", src:"https://www.instagram.com/reel/De5FLPjTRoF/", video:"reels/fenty-killawatt.mp4", poster:"reels/fenty-killawatt.jpg", product:"Fenty beauty killawatt freestyle highlighter" },
+  { title:"Pick one now", src:"https://www.instagram.com/reel/DfGFqnbyNDC/", video:"reels/pick-one-now.mp4", poster:"reels/pick-one-now.jpg", product:"YSL eyeshadow quad pallete" },
+  { title:"The pink edit", src:"https://www.instagram.com/reel/DcBm9V4Ssgq/", video:"reels/pink-edit.mp4", poster:"reels/pink-edit.jpg", product:"rhode pocket blush" },
+  { title:"YSL blush", src:"https://www.instagram.com/reel/DaYZSnvykkn/", video:"reels/ysl-blush.mp4", poster:"reels/ysl-blush.jpg", product:"YSL blush and highlighter pallate" }
 ];
 /* ======================= */
 
@@ -742,6 +753,7 @@ function drawDetail(){
   const disc=s.mrp&&s.price&&s.mrp>s.price?Math.round((1-s.price/s.mrp)*100):0;
   const hearted=wish.includes(p.id);
   const hasShades=p.shades.length>1||(p.shades[0]&&p.shades[0].name);
+  const rv=reelFor(p);
   const sim=ALL.filter(x=>x.id!==p.id&&x.cats.some(c=>p.cats.includes(c)));
   ALL.forEach(x=>{if(x.id!==p.id&&!sim.includes(x))sim.push(x)});
   $("#detailView").innerHTML=`<div class="dv"><a class="back" href="#shop">← Back to shop</a>
@@ -756,7 +768,10 @@ function drawDetail(){
     ${p.desc?`<h3 style="margin:10px 0 0;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--burgundy)">About this product</h3><div class="dtext">${esc(p.desc)}</div>`:""}
     <ul class="dlist"><li>✓ 100% authentic &amp; branded</li><li>✓ Prepaid orders only (no COD)</li><li>✓ Order via WhatsApp or Instagram</li></ul>
    </div></div>
+   ${rv?`<h2 class="sec" style="margin-left:0">See it in motion</h2><div class="dvidWrap"><video class="dvid" src="${esc(rv.video)}" poster="${esc(rv.poster||"")}" controls playsinline loop preload="auto"></video><div class="dvidCap">Straight from our Instagram · sound on</div></div>`:""}
    <h2 class="sec" style="margin-left:0">You may also like</h2><div class="grid" style="padding:0">${sim.slice(0,4).map(card).join("")}</div></div>`;
+  const dv=$("#detailView .dvid");
+  if(dv){try{dv.muted=false;dv.defaultMuted=false;dv.volume=1;const pr=dv.play();if(pr&&pr.catch)pr.catch(()=>{})}catch(e){}}
 }
 function route(){
   const m=location.hash.match(/^#\/p\/(.+)$/);
@@ -764,9 +779,12 @@ function route(){
     const id=decodeURIComponent(m[1]);
     if(dState.id!==id){dState={id,shade:"",img:0}}
     $("#shopView").style.display="none";document.querySelector(".bar").style.display="none";document.querySelector(".rl").style.display="none";$("#detailView").style.display="block";
+    document.querySelectorAll("#rlGrid video").forEach(v=>{try{v.pause()}catch(e){}});
     drawDetail();window.scrollTo(0,0);
   }else if(!m){
     $("#detailView").style.display="none";$("#shopView").style.display="";document.querySelector(".bar").style.display="";document.querySelector(".rl").style.display="";
+    const dv=$("#detailView .dvid");if(dv){try{dv.pause();dv.muted=true}catch(e){}}
+    reelVideos();
   }
 }
 window.addEventListener("hashchange",route);
@@ -877,12 +895,25 @@ function drawReels(){
     const poster=r.poster||(s&&s.photo)||"";
     const title=r.title||(p?p.name:"Pretty Beliss");
     return `<button class="rlCard" data-reel="${i}" aria-label="View product: ${esc(title)}">
-      ${poster?`<img src="${esc(poster)}" alt="${esc(title)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">`:""}
+      ${r.video
+        ? `<video class="rlVid" src="${esc(r.video)}" poster="${esc(poster)}" muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>`
+        : (poster?`<img src="${esc(poster)}" alt="${esc(title)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">`:"")}
       <span class="chip" aria-hidden="true">Reel</span>
       <span class="cap"><b>${esc(title)}</b><span>View product →</span></span>
     </button>`;
   }).join("");
+  reelVideos();
   reelPlay();
+}
+function reelVideos(){
+  document.querySelectorAll("#rlGrid video").forEach(v=>{
+    v.muted=true;v.defaultMuted=true;
+    try{const p=v.play();if(p&&p.catch)p.catch(()=>{})}catch(e){}
+  });
+}
+function reelFor(p){
+  if(!p)return null;
+  return REELS.find(r=>{const x=reelProduct(r);return x&&x.id===p.id})||null;
 }
 function reelStep(){
   const g=$("#rlGrid"),c=g&&g.querySelector(".rlCard");if(!c)return;
