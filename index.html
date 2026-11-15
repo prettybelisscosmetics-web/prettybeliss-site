@@ -775,27 +775,9 @@ function drawDetail(){
     ${p.desc?`<h3 style="margin:10px 0 0;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--burgundy)">About this product</h3><div class="dtext">${esc(p.desc)}</div>`:""}
     <ul class="dlist"><li>✓ 100% authentic &amp; branded</li><li>✓ Prepaid orders only (no COD)</li><li>✓ Order via WhatsApp or Instagram</li></ul>
    </div></div>
-   ${rv?`<h2 class="sec" style="margin-left:0">See it in motion</h2><div class="dvidWrap"><div class="dvidBox"><video class="dvid" src="${esc(rv.video)}" poster="${esc(rv.poster||"")}" controls playsinline webkit-playsinline loop preload="auto"></video><button class="dvidPlay" type="button" aria-label="Play this clip with sound"><b>▶</b>Tap for sound</button></div><div class="dvidCap">Straight from our Instagram · sound on</div></div>`:""}
+   ${rv?`<h2 class="sec" style="margin-left:0">See it in motion</h2><div class="dvidWrap"><div class="dvidBox"><video class="dvid" data-src="${esc(rv.video)}" poster="${esc(rv.poster||"")}" controls playsinline webkit-playsinline loop preload="none"></video><button class="dvidPlay" type="button" aria-label="Play this clip with sound"><b>▶</b>Tap for sound</button></div><div class="dvidCap">Straight from our Instagram · sound on</div></div>`:""}
    <h2 class="sec" style="margin-left:0">You may also like</h2><div class="grid" style="padding:0">${sim.slice(0,4).map(card).join("")}</div></div>`;
-  const dbox=$("#detailView .dvidBox"), dv=dbox&&dbox.querySelector(".dvid"), dtap=dbox&&dbox.querySelector(".dvidPlay");
-  if(dv){
-    /* start with sound; if the phone blocks it, show a tap target and start on the first touch */
-    const start=()=>{
-      dv.muted=false;dv.defaultMuted=false;dv.volume=1;
-      let pr=null;try{pr=dv.play()}catch(e){}
-      if(pr&&pr.then)pr.then(()=>dbox&&dbox.classList.remove("needsTap")).catch(()=>dbox&&dbox.classList.add("needsTap"));
-    };
-    start();
-    if(dtap)dtap.onclick=()=>{if(dbox)dbox.classList.remove("needsTap");start()};
-    const unblock=()=>{
-      ["pointerdown","touchstart","keydown"].forEach(t=>document.removeEventListener(t,unblock,true));
-      if(window.__dvUnblock===unblock)window.__dvUnblock=null;
-      if(dv.paused||dv.muted)start();
-    };
-    if(window.__dvUnblock)["pointerdown","touchstart","keydown"].forEach(t=>document.removeEventListener(t,window.__dvUnblock,true));
-    window.__dvUnblock=unblock;
-    ["pointerdown","touchstart","keydown"].forEach(t=>document.addEventListener(t,unblock,true));
-  }
+  detailVideo();
 }
 function route(){
   const m=location.hash.match(/^#\/p\/(.+)$/);
@@ -807,8 +789,7 @@ function route(){
     drawDetail();window.scrollTo(0,0);
   }else if(!m){
     $("#detailView").style.display="none";$("#shopView").style.display="";document.querySelector(".bar").style.display="";document.querySelector(".rl").style.display="";
-    const dv=$("#detailView .dvid");if(dv){try{dv.pause();dv.muted=true}catch(e){}}
-    if(window.__dvUnblock){["pointerdown","touchstart","keydown"].forEach(t=>document.removeEventListener(t,window.__dvUnblock,true));window.__dvUnblock=null}
+    detailVideoOff();
     reelVideos();
   }
 }
@@ -929,6 +910,55 @@ function drawReels(){
   }).join("");
   reelVideos();
   reelPlay();
+}
+/* product-page clip: fetched only when its block is in view, started with sound, and the
+   first-tap fallback is removed as soon as unmuted playback is really running */
+let dvIO=null;
+function disarmDetailTaps(){
+  if(!window.__dvUnblock)return;
+  ["pointerdown","touchstart","keydown"].forEach(t=>document.removeEventListener(t,window.__dvUnblock,true));
+  window.__dvUnblock=null;
+}
+function detailVideoOff(){
+  if(dvIO){dvIO.disconnect();dvIO=null}
+  disarmDetailTaps();
+  const dv=$("#detailView .dvid");
+  if(dv){try{dv.pause()}catch(e){}}
+}
+function detailVideo(){
+  const dbox=$("#detailView .dvidBox");if(!dbox)return;
+  const dv=dbox.querySelector(".dvid"), dtap=dbox.querySelector(".dvidPlay");
+  if(!dv)return;
+  const start=()=>{
+    if(!dv.getAttribute("src"))return;
+    dv.muted=false;dv.defaultMuted=false;dv.volume=1;
+    let pr=null;try{pr=dv.play()}catch(e){}
+    if(pr&&pr.then)pr.then(()=>{dbox.classList.remove("needsTap");disarmDetailTaps()})
+                    .catch(()=>{if(!dv.paused&&!dv.muted){disarmDetailTaps();return}dbox.classList.add("needsTap");armDetailTaps()});
+    else{dbox.classList.remove("needsTap");disarmDetailTaps()}
+  };
+  const armDetailTaps=()=>{
+    if(window.__dvUnblock)return;
+    const unblock=()=>{disarmDetailTaps();if(dv.paused||dv.muted)start()};
+    window.__dvUnblock=unblock;
+    ["pointerdown","touchstart","keydown"].forEach(t=>document.addEventListener(t,unblock,true));
+  };
+  const loadAndPlay=()=>{
+    if(!dv.getAttribute("src")&&dv.dataset.src){
+      dv.setAttribute("src",dv.dataset.src);dv.preload="auto";
+      try{dv.load()}catch(e){}
+    }
+    start();
+  };
+  dv.addEventListener("playing",()=>{if(!dv.muted){dbox.classList.remove("needsTap");disarmDetailTaps()}});
+  if(dtap)dtap.onclick=()=>{dbox.classList.remove("needsTap");loadAndPlay()};
+  disarmDetailTaps();
+  if(!("IntersectionObserver" in window)){loadAndPlay();return}
+  if(dvIO)dvIO.disconnect();
+  dvIO=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting&&e.intersectionRatio>=.35){if(dvIO){dvIO.disconnect();dvIO=null}loadAndPlay()}
+  }),{threshold:[0,.35]});
+  dvIO.observe(dv);
 }
 let rlIO=null;
 function reelVideos(){
