@@ -16,8 +16,12 @@ EDITING THE SITE DESIGN
   REELS list. Each line is one tile:
     title   = short caption shown on the cover
     src     = the original Instagram reel link (kept as the source of the clip)
-    video   = the clip file in the reels/ folder. It loops silently in the row and plays with sound on the
-              product page. To change a clip, replace that .mp4 with one of the same name
+    video   = the full clip in the reels/ folder, played with sound on the product page. To change a clip,
+              replace that .mp4 with one of the same name
+    preview = the short silent copy used in the moving row (the same name ending in -preview.mp4). The row
+              only fetches the previews of tiles actually on screen, so a phone loads a few hundred KB, not
+              the full clips. Rebuild it with ffmpeg (8 s, 320 px, no audio) or leave the field out to fall
+              back to the full clip
     poster  = the cover frame, also in reels/. Replace the .jpg with one of the same name
     product = exact product name from the sheet that the tile should open. Leave it blank and clicking the
               tile scrolls to the shop and shows a small note offering to find that piece on WhatsApp instead
